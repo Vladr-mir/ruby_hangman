@@ -7,6 +7,7 @@ require 'yaml'
 # Game logic
 class GameLogic
   attr_reader :tries, :hangman
+  attr_accessor :letters
 
   def initialize(random_word, tries = 0, letters = '')
     @secret_word = random_word
@@ -15,9 +16,13 @@ class GameLogic
     @letters = letters
   end
 
-  def make_guess!(guess)
+  def make_guess!
     @tries += 1
-    @hangman.guessed?(guess)
+    @hangman.guessed?(@letters)
+  end
+
+  def hint
+    @hangman.hint(@letters)
   end
 
   def save(name)
@@ -28,6 +33,7 @@ class GameLogic
   end
 
   def self.load(name)
+    return nil unless File.exist?("saves/#{name}.yaml")
     data = YAML.load(File.read("saves/#{name}.yaml"))
     new(data[:secret_word], data[:tries], data[:letters])
   end
@@ -38,7 +44,7 @@ class GameLogic
     YAML.dump(
       {
         secret_word: @secret_word,
-        tries: @tries
+        tries: @tries,
         letters: @letters
       }
     )
