@@ -19,15 +19,27 @@ game_logic = if user == 'y'
 
 game_logic = GameLogic.new(dict.random_word) if game_logic.nil?
 
-puts "\nEnter"
+puts "\nEnter a number other than 0 to save at any time!"
 
-until game_logic.tries >= game_logic.hangman.max || game_logic.make_guess!
+until game_logic.tries >= game_logic.hangman.max
+  puts "\n\n"
+  puts game_logic.hint
+  puts "Previously used letters: [#{used_letters}]"
+  puts "You have #{(game_logic.hangman.max - game_logic.tries)} tries"
   guess = gets.chomp.split('')[0]
-  used_letters.concat "#{guess} ,"
+
+  if guess.to_i != 0
+    game_logic.save(name)
+    break
+  end
+  used_letters.concat "#{guess}\s"
 
   game_logic.letters.concat guess
-  puts game_logic.hint
-  puts "Previously used letters: #{used_letters}"
+  
+  if game_logic.make_guess!
+    puts "you win!"
+    break
+  end
 end
 
-puts game_logic.hangman.secret_word
+puts game_logic.hangman.secret_word if game_logic.tries >= game_logic.hangman.max 
