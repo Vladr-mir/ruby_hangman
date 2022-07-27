@@ -2,10 +2,11 @@
 
 # HangMan
 class HangMan
-  attr_reader :secret_word
+  attr_reader :secret_word, :max
 
   def initialize(secret_word)
     @secret_word = secret_word
+    @max = 6
   end
 
   def guessed?(guess)
