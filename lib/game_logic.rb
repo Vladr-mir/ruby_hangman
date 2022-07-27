@@ -17,8 +17,8 @@ class GameLogic
   end
 
   def make_guess!
-    @tries += 1
-    @hangman.guessed?(@letters)
+    @tries += 1 unless @hangman.last_guessed?(@letters)
+    hangman.guessed?(@letters)
   end
 
   def hint
