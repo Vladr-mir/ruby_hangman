@@ -10,7 +10,7 @@ class HangMan
   end
 
   def guessed?(guess)
-    guess == @secret_word
+    hint(guess) == @secret_word
   end
 
   def guess(guess)
@@ -21,6 +21,12 @@ class HangMan
       formatted = hint_letter
     end
     formatted
+  end
+
+  def last_guessed?(guess)
+    guess = guess.split('')
+    letter = guess[-1]
+    @secret_word.split('').include?(letter)
   end
 
   def hint(guess)
