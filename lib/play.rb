@@ -25,7 +25,7 @@ until game_logic.tries >= game_logic.hangman.max
   puts "\n\n"
   puts game_logic.hint
   puts "Previously used letters: [#{used_letters}]"
-  puts "You have #{(game_logic.hangman.max - game_logic.tries)} tries"
+  puts "You have #{game_logic.hangman.max - game_logic.tries} tries"
   guess = gets.chomp.split('')[0]
 
   if guess.to_i != 0
@@ -35,11 +35,10 @@ until game_logic.tries >= game_logic.hangman.max
   used_letters.concat "#{guess}\s"
 
   game_logic.letters.concat guess
-  
   if game_logic.make_guess!
-    puts "you win!"
+    puts 'you win!'
     break
   end
 end
 
-puts game_logic.hangman.secret_word if game_logic.tries >= game_logic.hangman.max 
+puts game_logic.hangman.secret_word if game_logic.tries >= game_logic.hangman.max

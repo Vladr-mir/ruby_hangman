@@ -34,6 +34,7 @@ class GameLogic
 
   def self.load(name)
     return nil unless File.exist?("saves/#{name}.yaml")
+
     data = YAML.load(File.read("saves/#{name}.yaml"))
     new(data[:secret_word], data[:tries], data[:letters])
   end
