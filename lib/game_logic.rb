@@ -25,6 +25,14 @@ class GameLogic
     @hangman.hint(@letters)
   end
 
+  def max
+    @hangman.max
+  end
+
+  def secret_word
+    @hangman.secret_word
+  end
+
   def save(name)
     file = File.open("saves/#{name}.yaml", 'w')
     file.write(to_yaml)
